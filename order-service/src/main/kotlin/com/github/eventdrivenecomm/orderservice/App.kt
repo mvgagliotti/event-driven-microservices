@@ -30,10 +30,11 @@ fun main(args: Array<String>) {
     System.setProperty("org.eclipse.jetty.util.log.class", "org.eclipse.jetty.util.log.StdErrLog")
     System.setProperty("org.eclipse.jetty.LEVEL", "OFF")
 
-    check(args[0].toInt() > 0)
+    val clusterNodePort = if (args.isNotEmpty()) args[0].toInt() else 2551
+    check(clusterNodePort > 0)
 
     startKoin {
-        modules(startMainModule(mapOf("akka-node-port" to "${args[0]}")))
+        modules(startMainModule(mapOf("akka-node-port" to "$clusterNodePort")))
     }
         .koin
         .get<App>()

@@ -8,6 +8,7 @@ import com.github.eventdrivenecomm.orderservice.akka.factory.CommandFirerFactory
 import com.github.eventdrivenecomm.orderservice.domain.OrderCommand
 import com.github.eventdrivenecomm.orderservice.domain.OrderEvent
 import com.github.eventdrivenecomm.orderservice.eventsourcing.CommandFirer
+import com.github.eventdrivenecomm.orderservice.restapi.controllers.LoginController
 import com.github.eventdrivenecomm.orderservice.restapi.controllers.OrderController
 import com.github.eventdrivenecomm.orderservice.restapi.routes.OrderRouter
 import com.typesafe.config.ConfigFactory
@@ -39,6 +40,7 @@ fun startMainModule(values: Map<String, String>) = module {
     }
 
     single { OrderController(get()) }
-    single { OrderRouter(get()) }
+    single { LoginController() }
+    single { OrderRouter(get(), get()) }
     single { App(get()) }
 }

@@ -47,7 +47,7 @@ class App : KoinComponent {
                 }
             }.apply {
                 router.routes(this)
-            }.start(7000)
+            }.start(7002)
     }
 }
 

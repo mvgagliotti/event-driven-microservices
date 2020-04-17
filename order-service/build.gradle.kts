@@ -67,6 +67,10 @@ dependencies {
 
     //Koin
     compile("org.koin:koin-core:2.1.3")
+
+    //fuel http
+    implementation("com.github.kittinunf.fuel:fuel:2.2.0")
+    implementation("com.github.kittinunf.fuel:fuel-jackson:2.2.0")
     
     testCompile("com.typesafe.akka:akka-actor-testkit-typed_$scalaVersion:$akkaVersion")
     testCompile("junit:junit:4.12")

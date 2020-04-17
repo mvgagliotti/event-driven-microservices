@@ -6,6 +6,7 @@ import com.github.eventdrivenecomm.customerservice.auth.TokenCreator
 import com.github.eventdrivenecomm.customerservice.auth.TokenVerifier
 import com.github.eventdrivenecomm.customerservice.config.EnvironmentConfig
 import com.github.eventdrivenecomm.customerservice.domain.repository.UserRepository
+import com.github.eventdrivenecomm.customerservice.domain.service.LoginService
 import com.github.eventdrivenecomm.customerservice.domain.service.RegisterService
 import com.github.eventdrivenecomm.customerservice.infrastructure.datasource.DataSourceBuilder
 import com.github.eventdrivenecomm.customerservice.infrastructure.persistence.UserRepositoryImpl
@@ -26,6 +27,7 @@ val datasourceModule = module {
 val domainModule = module {
     single<UserRepository> { UserRepositoryImpl() }
     single { RegisterService(get(), get()) }
+    single { LoginService(get(), get()) }
 }
 
 val authModule = module {
@@ -37,6 +39,6 @@ val authModule = module {
 
 val webModule = module {
     single { RegisterController(get()) }
-    single { LoginController(get()) }
+    single { LoginController(get(), get()) }
     single { Router(get(), get()) }
 }

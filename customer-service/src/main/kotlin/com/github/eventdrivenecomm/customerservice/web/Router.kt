@@ -16,11 +16,11 @@ class Router(
 
     fun routes(javalin: Javalin) = javalin.apply {
 
-        get("/") { ctx -> ctx.result("Hello World") }
-
-        post("/register", registerController::register, setOf(Roles.AUTHENTICATED))
+        post("/register", registerController::register, setOf(Roles.ANYONE))
 
         post("/login", loginController::login, setOf(Roles.ANYONE))
+
+        post("/validate-login", loginController::validateLogin, setOf(Roles.ANYONE))
 
     }
 }

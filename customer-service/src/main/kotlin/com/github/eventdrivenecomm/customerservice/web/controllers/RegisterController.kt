@@ -9,11 +9,11 @@ class RegisterController(
     private val registerService: RegisterService
 ) {
 
-    private val logger =  LoggerFactory.getLogger(RegisterController::class.java)
+    private val logger = LoggerFactory.getLogger(RegisterController::class.java)
 
     fun register(ctx: Context) {
         val dto = ctx.bodyAsClass(RegisterDTO::class.java)
-        logger.info("Received a register request: $dto")
+        logger.info("Received a register request: ${dto.email}")
         registerService.registerUser(User(email = dto.email, password = dto.password))
     }
 }

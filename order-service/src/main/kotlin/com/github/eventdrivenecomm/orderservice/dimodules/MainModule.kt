@@ -42,5 +42,5 @@ fun startMainModule(values: Map<String, String>) = module {
     single { OrderController(get()) }
     single { LoginController() }
     single { OrderRouter(get(), get()) }
-    single { App(get()) }
+    single { App() }
 }

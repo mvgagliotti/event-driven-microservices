@@ -26,6 +26,8 @@ dependencies {
     val scalaVersion = "2.13"
     val akkaVersion = "2.6.4"
     val cassandraPluginVersion = "0.103"
+    val jwtVersion = "3.10.2"
+    val konfigVersion = "1.6.10.0"
 
     /////////////////////
     /// Main dependencies
@@ -71,6 +73,13 @@ dependencies {
     //fuel http
     implementation("com.github.kittinunf.fuel:fuel:2.2.0")
     implementation("com.github.kittinunf.fuel:fuel-jackson:2.2.0")
+
+    //JWT
+    implementation("com.auth0:java-jwt:$jwtVersion")
+    
+    //konfig
+    implementation("com.natpryce:konfig:$konfigVersion")
+    
     
     testCompile("com.typesafe.akka:akka-actor-testkit-typed_$scalaVersion:$akkaVersion")
     testCompile("junit:junit:4.12")

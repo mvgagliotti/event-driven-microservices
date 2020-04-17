@@ -70,7 +70,7 @@ object OrderAggregate : ESAggregate<OrderCommand, OrderEvent, OrderState> {
      */
     override fun handleCommand(command: OrderCommand, state: OrderState): OrderEvent = when (command) {
         is CreateOrderCommand -> {
-            check(state.order != EMPTY_ORDER) { "Order ${command.orderId} has already been created" }
+            check(state.order == EMPTY_ORDER) { "Order ${command.orderId} has already been created" }
             require(command.items.isNotEmpty()) { "Cannot create an order without items" }
             OrderCreatedEvent(command.orderId, command.userId, command.items)
         }

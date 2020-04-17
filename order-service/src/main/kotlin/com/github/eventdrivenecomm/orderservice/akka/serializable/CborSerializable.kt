@@ -1,0 +1,3 @@
+package com.github.eventdrivenecomm.orderservice.akka.serializable
+
+interface CborSerializable

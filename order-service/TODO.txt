@@ -1,0 +1,14 @@
+* Implement first tests (OK)
+* Kubernetes:
+    * Read both:
+        * https://doc.akka.io/docs/akka-management/current/bootstrap/index.html
+        * https://blog.softwaremill.com/running-akka-cluster-on-kubernetes-e4cd2913e951
+
+* Run app with Uber jar, check if it's working
+* Implement more API endpoints:
+    * add item to order;
+    * remove item from order;
+    * increase/decrease the amount of a given item from a existing order
+* Implement auth
+* Implement the complete Aggregate logic
+* Test aggregate logic

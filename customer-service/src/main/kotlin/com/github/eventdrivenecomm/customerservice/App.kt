@@ -8,6 +8,7 @@ import com.github.eventdrivenecomm.customerservice.modules.domainModule
 import com.github.eventdrivenecomm.customerservice.modules.webModule
 import com.github.eventdrivenecomm.customerservice.web.Router
 import io.javalin.Javalin
+import org.eclipse.jetty.http.HttpStatus
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -16,6 +17,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.inject
 import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.inject
+import java.lang.RuntimeException
 import javax.sql.DataSource
 
 class App : KoinComponent {
@@ -47,6 +49,10 @@ class App : KoinComponent {
                 }
             }.apply {
                 router.routes(this)
+                this.exception(RuntimeException::class.java) { e, ctx ->
+                    ctx.status(HttpStatus.BAD_REQUEST_400)
+                    ctx.result(e.message ?: "Bad request")
+                }
             }.start(7002)
     }
 }

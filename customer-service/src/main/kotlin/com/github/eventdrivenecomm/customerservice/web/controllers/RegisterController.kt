@@ -1,7 +1,7 @@
 package com.github.eventdrivenecomm.customerservice.web.controllers
 
 import com.github.eventdrivenecomm.customerservice.domain.model.User
-import com.github.eventdrivenecomm.customerservice.domain.service.RegisterService
+import com.github.eventdrivenecomm.customerservice.application.service.RegisterService
 import io.javalin.http.Context
 import org.slf4j.LoggerFactory
 

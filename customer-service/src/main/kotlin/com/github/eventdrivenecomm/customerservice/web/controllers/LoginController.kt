@@ -1,9 +1,9 @@
 package com.github.eventdrivenecomm.customerservice.web.controllers
 
 import com.github.eventdrivenecomm.customerservice.auth.TokenCreator
-import com.github.eventdrivenecomm.customerservice.domain.dto.LoginDTO
+import com.github.eventdrivenecomm.customerservice.application.dto.LoginDTO
 import com.github.eventdrivenecomm.customerservice.domain.model.User
-import com.github.eventdrivenecomm.customerservice.domain.service.LoginService
+import com.github.eventdrivenecomm.customerservice.application.service.LoginService
 import io.javalin.http.Context
 import io.javalin.http.ForbiddenResponse
 

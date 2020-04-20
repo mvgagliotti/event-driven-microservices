@@ -1,0 +1,13 @@
+1. create the Dockerfile
+2. run 
+	* docker build -t <IMAGE-NAME> .
+3. check if it's been created: 
+	* docker images
+4. optionally, run it to check if it's working:
+	* docker run -p <HOST_PORT>:<CONTAINER_PORT> <IMAGE-NAME>
+5. log in on docker hub:
+	* docker login --username=<MY_USER_NAME>
+6. tag the image: 
+	* docker tag customer-service:latest mvgagliotti/customer-service:1
+7. push to docker hub:
+	* docker push mvgagliotti/customer-service:1

@@ -6,15 +6,14 @@ import com.github.eventdrivenecomm.customerservice.auth.TokenCreator
 import com.github.eventdrivenecomm.customerservice.auth.TokenVerifier
 import com.github.eventdrivenecomm.customerservice.config.EnvironmentConfig
 import com.github.eventdrivenecomm.customerservice.domain.repository.UserRepository
-import com.github.eventdrivenecomm.customerservice.domain.service.LoginService
-import com.github.eventdrivenecomm.customerservice.domain.service.RegisterService
+import com.github.eventdrivenecomm.customerservice.application.service.LoginService
+import com.github.eventdrivenecomm.customerservice.application.service.RegisterService
 import com.github.eventdrivenecomm.customerservice.infrastructure.datasource.DataSourceBuilder
 import com.github.eventdrivenecomm.customerservice.infrastructure.persistence.UserRepositoryImpl
 import com.github.eventdrivenecomm.customerservice.web.Router
 import com.github.eventdrivenecomm.customerservice.web.controllers.LoginController
 import com.github.eventdrivenecomm.customerservice.web.controllers.RegisterController
 import org.koin.dsl.module
-import javax.sql.DataSource
 
 val configModule = module {
     single { EnvironmentConfig() }

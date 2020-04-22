@@ -8,6 +8,10 @@ import com.github.eventdrivenecomm.customerservice.modules.domainModule
 import com.github.eventdrivenecomm.customerservice.modules.webModule
 import com.github.eventdrivenecomm.customerservice.web.Router
 import io.javalin.Javalin
+import io.javalin.plugin.metrics.MicrometerPlugin
+import io.micrometer.core.instrument.Metrics
+import io.micrometer.prometheus.PrometheusConfig
+import io.micrometer.prometheus.PrometheusMeterRegistry
 import org.eclipse.jetty.http.HttpStatus
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -47,8 +51,17 @@ class App : KoinComponent {
                 config.accessManager { handler, ctx, permittedRoles ->
                     handler.handle(ctx)
                 }
+                config.registerPlugin(MicrometerPlugin())
             }.apply {
                 router.routes(this)
+
+                //configuring metrics endpoint
+                val prometheusRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
+                Metrics.globalRegistry.add(prometheusRegistry)
+                this.get("/metrics") { ctx ->
+                    ctx.result(prometheusRegistry.scrape())
+                }
+
                 this.exception(RuntimeException::class.java) { e, ctx ->
                     ctx.status(HttpStatus.BAD_REQUEST_400)
                     ctx.result(e.message ?: "Bad request")

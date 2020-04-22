@@ -68,6 +68,9 @@ dependencies {
 
     //konfig
     implementation("com.natpryce:konfig:$konfigVersion")
+
+    //micrometer
+    implementation("io.micrometer:micrometer-registry-prometheus:1.1.12")
     
     /////////////////////
     /// Test dependencies

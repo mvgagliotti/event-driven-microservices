@@ -1,5 +1,6 @@
 package com.github.eventdrivenecomm.customerservice.web
 
+import com.github.eventdrivenecomm.customerservice.web.controllers.HealthCheckController
 import com.github.eventdrivenecomm.customerservice.web.controllers.LoginController
 import com.github.eventdrivenecomm.customerservice.web.controllers.RegisterController
 import io.javalin.Javalin
@@ -11,7 +12,8 @@ enum class Roles : Role {
 
 class Router(
     private val registerController: RegisterController,
-    private val loginController: LoginController
+    private val loginController: LoginController,
+    private val healthCheckController: HealthCheckController
 ) {
 
     fun routes(javalin: Javalin) = javalin.apply {
@@ -21,6 +23,8 @@ class Router(
         post("/login", loginController::login, setOf(Roles.ANYONE))
 
         post("/validate-login", loginController::validateLogin, setOf(Roles.ANYONE))
+
+        get("/health", healthCheckController::performHealthCheck)
 
     }
 }

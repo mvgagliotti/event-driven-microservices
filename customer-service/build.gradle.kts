@@ -28,6 +28,8 @@ dependencies {
     val konfigVersion = "1.6.10.0"
     val pgVersion = "42.2.12"
     val jwtVersion = "3.10.2"
+    val prometheusVersion = "1.1.12" //due to javalin dependency
+    val dropwizardVersion = "3.2.4"
 
     /////////////////////
     /// Main dependencies
@@ -70,8 +72,12 @@ dependencies {
     implementation("com.natpryce:konfig:$konfigVersion")
 
     //micrometer
-    implementation("io.micrometer:micrometer-registry-prometheus:1.1.12")
-    
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
+
+    //metrics-healthcheck
+    implementation("io.dropwizard.metrics:metrics-core:$dropwizardVersion")
+    implementation("io.dropwizard.metrics:metrics-healthchecks:$dropwizardVersion")
+
     /////////////////////
     /// Test dependencies
     /////////////////////

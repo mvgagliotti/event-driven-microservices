@@ -1,6 +1,7 @@
 package com.github.eventdrivenecomm.customerservice.modules
 
 import com.auth0.jwt.algorithms.Algorithm
+import com.codahale.metrics.health.HealthCheckRegistry
 import com.github.eventdrivenecomm.customerservice.auth.Base64Encryptor
 import com.github.eventdrivenecomm.customerservice.auth.TokenCreator
 import com.github.eventdrivenecomm.customerservice.auth.TokenVerifier
@@ -11,6 +12,7 @@ import com.github.eventdrivenecomm.customerservice.domain.service.RegisterServic
 import com.github.eventdrivenecomm.customerservice.infrastructure.datasource.DataSourceBuilder
 import com.github.eventdrivenecomm.customerservice.infrastructure.persistence.UserRepositoryImpl
 import com.github.eventdrivenecomm.customerservice.web.Router
+import com.github.eventdrivenecomm.customerservice.web.controllers.HealthCheckController
 import com.github.eventdrivenecomm.customerservice.web.controllers.LoginController
 import com.github.eventdrivenecomm.customerservice.web.controllers.RegisterController
 import org.koin.dsl.module
@@ -19,8 +21,12 @@ val configModule = module {
     single { EnvironmentConfig() }
 }
 
+val healthCheckModule = module {
+    single { HealthCheckRegistry() }
+}
+
 val datasourceModule = module {
-    single { DataSourceBuilder(get()).build() }
+    single { DataSourceBuilder(get(), get()).build() }
 }
 
 val domainModule = module {
@@ -39,5 +45,6 @@ val authModule = module {
 val webModule = module {
     single { RegisterController(get()) }
     single { LoginController(get(), get()) }
-    single { Router(get(), get()) }
+    single { Router(get(), get(), get()) }
+    single { HealthCheckController(get()) }
 }

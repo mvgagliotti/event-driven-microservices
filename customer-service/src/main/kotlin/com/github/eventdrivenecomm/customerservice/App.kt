@@ -5,6 +5,7 @@ import com.github.eventdrivenecomm.customerservice.modules.authModule
 import com.github.eventdrivenecomm.customerservice.modules.configModule
 import com.github.eventdrivenecomm.customerservice.modules.datasourceModule
 import com.github.eventdrivenecomm.customerservice.modules.domainModule
+import com.github.eventdrivenecomm.customerservice.modules.healthCheckModule
 import com.github.eventdrivenecomm.customerservice.modules.webModule
 import com.github.eventdrivenecomm.customerservice.web.Router
 import io.javalin.Javalin
@@ -19,9 +20,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.inject
-import org.koin.java.KoinJavaComponent
-import org.koin.java.KoinJavaComponent.inject
-import java.lang.RuntimeException
 import javax.sql.DataSource
 
 class App : KoinComponent {
@@ -33,6 +31,7 @@ class App : KoinComponent {
 
         startKoin {
             modules(configModule,
+                    healthCheckModule,
                     domainModule,
                     authModule,
                     datasourceModule,

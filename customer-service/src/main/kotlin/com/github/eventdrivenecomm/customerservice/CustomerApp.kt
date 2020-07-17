@@ -22,7 +22,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.inject
 import javax.sql.DataSource
 
-class App : KoinComponent {
+class CustomerApp : KoinComponent {
 
     private val router: Router by inject()
     private val dataSource: DataSource by inject()
@@ -76,6 +76,6 @@ class App : KoinComponent {
  */
 fun main() {
 
-    App().setup()
+    CustomerApp().setup()
 
 }

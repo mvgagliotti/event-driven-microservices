@@ -1,6 +1,6 @@
 package com.github.eventdrivenecomm.orderservice
 
-import com.github.eventdrivenecomm.orderservice.auth.TokenVerifier
+import com.github.eventdrivenecomm.orderservice.auth.TokenHandler
 import com.github.eventdrivenecomm.orderservice.dimodules.authModule
 import com.github.eventdrivenecomm.orderservice.dimodules.startMainModule
 import com.github.eventdrivenecomm.orderservice.restapi.routes.OrderRouter
@@ -11,10 +11,10 @@ import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.inject
 
-class App : KoinComponent {
+class OrderServiceApp : KoinComponent {
 
     private val orderRouter: OrderRouter by inject()
-    private val tokenVerifier: TokenVerifier by inject()
+    private val tokenHandler: TokenHandler by inject()
 
     enum class Roles : Role {
         ANYONE, AUTHENTICATED
@@ -32,12 +32,15 @@ class App : KoinComponent {
                         return@accessManager
                     }
 
-                    val token = ctx.header("Authorization")?.substringAfter("Token ") ?: ""
-                    tokenVerifier
+                    val authBase64Token = ctx.header("Authorization")?.substringAfter("Token ") ?: ""
+                    val jwtToken = tokenHandler.extractJwtToken(authBase64Token)
+
+                    tokenHandler
                         .verify(permittedRoles = *permittedRoles.map { it.toString() }.toTypedArray(),
-                                token = token)
+                            token = jwtToken)
                         .also { if (!it) throw ForbiddenResponse() }
 
+                    ctx.attribute("USER", jwtToken.subject)
                     handler.handle(ctx)
                 }
             }
@@ -65,9 +68,9 @@ fun main(args: Array<String>) {
 
     startKoin {
         modules(authModule,
-                startMainModule(mapOf("akka-node-port" to "$clusterNodePort")))
+            startMainModule(mapOf("akka-node-port" to "$clusterNodePort")))
     }
         .koin
-        .get<App>()
+        .get<OrderServiceApp>()
         .start(7001)
 }

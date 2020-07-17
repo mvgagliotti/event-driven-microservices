@@ -1,7 +1,7 @@
 package com.github.eventdrivenecomm.orderservice.dimodules
 
 import akka.actor.typed.ActorSystem
-import com.github.eventdrivenecomm.orderservice.App
+import com.github.eventdrivenecomm.orderservice.OrderServiceApp
 import com.github.eventdrivenecomm.orderservice.actor.OrderActor
 import com.github.eventdrivenecomm.orderservice.actor.guardianActor
 import com.github.eventdrivenecomm.orderservice.akka.factory.CommandFirerFactory
@@ -29,7 +29,7 @@ fun startMainModule(values: Map<String, String>) = module {
 
         val mySystem = ActorSystem.create<Void>(
             guardianActor,
-            "my-system",
+            "my-system", //TODO: refactor this, get it from the outside
             config
         )
         return@single mySystem
@@ -42,5 +42,5 @@ fun startMainModule(values: Map<String, String>) = module {
     single { OrderController(get()) }
     single { LoginController() }
     single { OrderRouter(get(), get()) }
-    single { App() }
+    single { OrderServiceApp() }
 }

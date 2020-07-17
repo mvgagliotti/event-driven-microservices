@@ -4,10 +4,12 @@ import com.github.eventdrivenecomm.orderservice.domain.*
 import com.github.eventdrivenecomm.orderservice.eventsourcing.CommandFirer
 import com.github.eventdrivenecomm.orderservice.restapi.dtos.OrderCreatedResponseDTO
 import com.github.eventdrivenecomm.orderservice.restapi.dtos.OrderDTO
+import com.github.eventdrivenecomm.orderservice.restapi.extensions.currentUser
 import io.javalin.http.Context
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 import java.util.*
+
 
 class OrderController(
     private val commandFirer: CommandFirer<OrderCommand, OrderEvent>
@@ -49,8 +51,9 @@ class OrderController(
         }
 
         //step3: create the command and fire it
+        val user = ctx.currentUser()
         val command: OrderCommand = CreateOrderCommand(
-            id, "user-2", items //TODO: check where to get this user id from
+            id, user, items
         )
 
         val future =

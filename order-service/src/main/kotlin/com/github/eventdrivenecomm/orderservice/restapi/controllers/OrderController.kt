@@ -2,12 +2,12 @@ package com.github.eventdrivenecomm.orderservice.restapi.controllers
 
 import com.github.eventdrivenecomm.orderservice.domain.*
 import com.github.eventdrivenecomm.orderservice.eventsourcing.CommandFirer
+import com.github.eventdrivenecomm.orderservice.restapi.dtos.ItemDTO
 import com.github.eventdrivenecomm.orderservice.restapi.dtos.OrderCreatedResponseDTO
 import com.github.eventdrivenecomm.orderservice.restapi.dtos.OrderDTO
 import com.github.eventdrivenecomm.orderservice.restapi.extensions.currentUser
 import io.javalin.http.Context
 import org.slf4j.LoggerFactory
-import java.math.BigDecimal
 import java.util.*
 
 
@@ -26,7 +26,9 @@ class OrderController(
             .toCompletableFuture()
             .thenApply { evt ->
                 val order = (evt as GetEvent).order
-                return@thenApply order
+                OrderDTO(order.items.map {
+                    ItemDTO(it.id, it.description, it.amount, it.value)
+                })
             }
 
         ctx.json(future)
@@ -46,7 +48,7 @@ class OrderController(
                 id = it.id,
                 description = it.description,
                 amount = it.amount,
-                value = BigDecimal.valueOf(10.0) //TODO: define the item value
+                value = it.price
             )
         }
 

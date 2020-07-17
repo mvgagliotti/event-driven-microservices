@@ -25,7 +25,7 @@ class AkkaCommandFirer<Command, Event>(
                 },
                 Duration.ofSeconds(4),
                 system.scheduler()
-            )
+            ).toCompletableFuture()
     }
 }
 

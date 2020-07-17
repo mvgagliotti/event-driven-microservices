@@ -42,7 +42,7 @@ data class ItemsAddedEvent(
 @DoNotPersistEvent
 data class GetEvent(
     override val orderId: String,
-    val order: Order?
+    val order: Order
 ) : OrderEvent(orderId)
 
 //state

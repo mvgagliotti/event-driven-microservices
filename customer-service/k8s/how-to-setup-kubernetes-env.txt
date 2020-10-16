@@ -1,0 +1,57 @@
+==========================================TROUBLESHOOTING==========================================
+* AttachVolume.Attach failed for volume "pg-pv" : error attaching EBS volume XXX to instance YYYY UnauthorizedOperation: You are not authorized to perform this operation
+    * Explanation: https://stackoverflow.com/questions/48132000/kubernetes-kops-error-attaching-ebs-volume-to-instance-you-are-not-authorized
+    *
+
+==========================================STEPS==========================================
+* Step 1 : create the cluster
+    $ kops create cluster --name=ktfitec.k8s.local --zones=sa-east-1a --master-size=t2.medium --node-size=t2.micro
+
+* Step X: create the ESB volume for the PV:
+    * IMPORTANT: the Tag value must match the cluster name: e.g: Tags=[{Key=KubernetesCluster,Value=ktfitec.k8s.local}]
+    $ aws ec2 create-volume --size 2 --region sa-east-1 --availability-zone sa-east-1a --volume-type gp2 --tag-specifications 'ResourceType=volume, Tags=[{Key=KubernetesCluster,Value=ktfitec.k8s.local}]'
+
+* Step X: copy the volume id from previous step and set the volumeId from Persistence Volume with that value,
+  inside customer-service-db-resources.yaml file.
+
+* Step X: configure the ingress:
+    $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/kops/master/addons/ingress-nginx/v1.6.0.yaml
+    $ kubectl get service -n=kube-ingress
+
+* Step X: create the resources as follows:
+    $ kubectl apply -f dev-namespace.yaml
+    $ kubectl apply -f customer-service-db-secrets.yaml
+    $ kubectl apply -f customer-service-db-resources.yaml
+    $ kubectl apply -f customer-service-db-service.yaml
+    $ kubectl apply -f customer-service-deployment.yaml
+    $ kubectl apply -f customer-service-service.yaml
+    $ kubectl apply -f customer-service-ingress.yaml
+
+* Step X: check postgres pod:
+    $ kubectl exec -n=dev --stdin --tty <POD-NAME> -- /bin/bash
+    $ psql -U customer_service
+
+* Step X: check one of the customer-service pods:
+    $ kubectl exec -n=dev --stdin --tty <POD-NAME> -- /bin/sh
+    $ wget http://localhost:7002/health
+    $ cat health
+
+* Step X: check the external-ip
+    $ kubectl get service -n=kube-ingress
+    NAME            CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)          AGE       SELECTOR
+    ingress-nginx   100.71.196.44   a29c28f4b8b0811e685cb0a924c5a8a1-1593015597.us-east-1.elb.amazonaws.com   80/TCP,443/TCP   13m       app=ingress-nginx
+
+* Step X: interact wit customer-service
+    curl -v -H "Host: mvgc.cloud.com" --location --request POST 'http://ab6ed3fd401d14456b257ef25e4d399a-712210762.sa-east-1.elb.amazonaws.com/register' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "email": "mvgagliotti@gmail.com",
+        "password" : "test123"
+    }'
+
+    curl -v -H "Host: mvgc.cloud.com"  --location --request POST 'http://ab6ed3fd401d14456b257ef25e4d399a-712210762.sa-east-1.elb.amazonaws.com/login' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "email": "mvgagliotti@gmail.com",
+        "password" : "test123"
+    }'

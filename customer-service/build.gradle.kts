@@ -7,7 +7,7 @@ plugins {
 }
 
 application {
-    mainClassName = "com.github.eventdrivenecomm.customerservice.AppKt"
+    mainClassName = "com.github.eventdrivenecomm.customerservice.CustomerAppKt"
 }
 
 group = "com.github.eventdrivenecomm.customerservice"

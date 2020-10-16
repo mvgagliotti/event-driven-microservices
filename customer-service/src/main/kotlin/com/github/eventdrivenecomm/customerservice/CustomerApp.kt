@@ -73,15 +73,11 @@ class CustomerApp : KoinComponent {
 /**
  * App entry point
  *
- * Run postgres on docker:
+ * Running with docker:
+ *
  * docker run --name postgres -e POSTGRES_DB=customer_service -e POSTGRES_USER=root -e POSTGRES_PASSWORD=test123 -d -p 5432:5432 postgres
+ * docker run mvgagliotti/customer-service:1.2 -e DATABASE_USERNAME=root -e DATABASE_PASSWORD=test123 -e DATABASE_PORT=5432 -e PERSISTENCE_MODE=postgres -d -p 5432:5432 customer-service
  *
- * For postgres, place these variables:
- *
- *  PERSISTENCE_MODE=postgres;
- *  DATABASE_HOST=MY-HOST; //default=localhost
- *  DATABASE_USERNAME=root;
- *  DATABASE_PASSWORD=test123
  */
 fun main() {
 

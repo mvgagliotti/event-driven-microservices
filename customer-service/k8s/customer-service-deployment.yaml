@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service-deployment
+  namespace: dev
+  labels:
+    app: customer-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: customer-service
+  template:
+    metadata:
+      labels:
+        app: customer-service
+    spec:
+      containers:
+        - name: customer-service
+          image: mvgagliotti/customer-service:1.2
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 7002
+          env:
+            - name: PERSISTENCE_MODE
+              value: "postgres"
+            - name: DATABASE_HOST
+              value: customer-service-db-service
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: customer-service-secrets
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: customer-service-secrets
+                  key: password

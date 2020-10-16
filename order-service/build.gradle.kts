@@ -8,7 +8,7 @@ plugins {
 }
 
 application {
-    mainClassName = "com.github.eventdrivenecomm.orderservice.AppKt"
+    mainClassName = "com.github.eventdrivenecomm.orderservice.OrderServiceAppKt"
 }
 
 group = "com.github.eventdrivenecomm.orderservice"

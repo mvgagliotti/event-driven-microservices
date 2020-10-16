@@ -1,0 +1,46 @@
+TODO: 
+    * continue to work on the chart inside the VM;
+        * After that, extract them out of the VM, put into K8s directory and commit it;
+
+======================================================================================================================================================
+* Step 1 : create the cluster
+    $ aws s3api create-bucket --bucket kt-kops-cluster-store-mvgc --region sa-east-1 --create-bucket-configuration LocationConstraint=sa-east-1
+    $ export KOPS_STATE_STORE=s3://kt-kops-cluster-store-mvgc
+    $ kops create cluster --name=kt-kops-mvgc.k8s.local --zones=sa-east-1a --master-size=t2.medium --node-size=t2.micro
+
+* Step 2: create the ESB volume for the PV:
+    * IMPORTANT: the Tag value must match the cluster name: e.g: Tags=[{Key=KubernetesCluster,Value=kt-kops-mvgc.k8s.local}]
+    $ aws ec2 create-volume --size 2 --region sa-east-1 --availability-zone sa-east-1a --volume-type gp2 --tag-specifications 'ResourceType=volume, Tags=[{Key=KubernetesCluster,Value=kt-kops-mvgc.k8s.local}]'
+
+* Step 3: copy the volume id from previous step and set the volumeId from Persistence Volume with that value,
+  inside postgres-pv.yaml file.
+
+* Step 4: create the namespace, PV and PVC
+    $ kubectl apply -f dev-ns.yaml
+    $ kubectl apply -f postgres-pv.yaml
+    $ kubectl apply -f postgres-pvc.yaml
+    $ kubectl apply -f db-secret.yaml
+
+* Step 5: install postgres helm chart:
+    https://github.com/bitnami/charts/tree/master/bitnami/postgresql/#parameters
+    https://stackoverflow.com/questions/61752126/how-to-create-helm-chart-of-postgres-with-pvc
+    https://stackoverflow.com/questions/60332644/deploy-microservice-to-kubernetes-with-postgresql-via-using-helm
+
+    $ helm repo add bitnami https://charts.bitnami.com/bitnami
+    $ helm install my-pg bitnami/postgresql --namespace=dev --set persistence.existingClaim=pg-pvc,postgresqlDatabase=customer_service,postgresqlUsername=customer_service,postgresqlPassword=test123
+    * Check psql is running:
+        $ kubectl exec -n=dev --stdin --tty my-pg-postgresql-0 -- /bin/bash
+        $ psql -U customer_service //test123
+
+* Step 6: install ingress-nginx
+    https://kubernetes.github.io/ingress-nginx/deploy/#using-helm
+
+    $ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/
+    $ helm install my-ingress-nginx ingress-nginx/ingress-nginx
+    * Check if its running:
+        $ kubectl get services
+
+* Step 7: install customer-service
+    $ cd customer_service
+    $ helm install my-cs --namespace=dev ./cs-chart/
+    $ helm install my-cs --namespace=dev ./cs-chart/ --set dbService=my-pg-postgresql

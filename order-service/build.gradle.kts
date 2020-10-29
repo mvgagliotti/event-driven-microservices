@@ -24,7 +24,7 @@ dependencies {
     /// Versions
     /////////////////////
     val scalaVersion = "2.13"
-    val akkaVersion = "2.6.4"
+    val akkaVersion = "2.6.9"
     val cassandraPluginVersion = "0.103"
     val jwtVersion = "3.10.2"
     val konfigVersion = "1.6.10.0"
@@ -46,6 +46,9 @@ dependencies {
 
     //Akka serialization
 //    implementation("com.typesafe.akka:akka-serialization-jackson_$scalaVersion:$akkaVersion")
+
+    //Akka projections
+    implementation("com.lightbend.akka:akka-projection-core_$scalaVersion:1.0.0")
 
     //LevelDB
     implementation("org.fusesource.leveldbjni:leveldbjni-all:1.8")

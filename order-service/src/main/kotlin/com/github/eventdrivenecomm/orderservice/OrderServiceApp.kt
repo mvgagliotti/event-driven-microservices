@@ -56,6 +56,9 @@ class OrderServiceApp : KoinComponent {
 /**
  * TODO: review the way ports are obtained: it's better to put them on env variables rather than command line params
  *
+ * To run in memory:
+ * -Dconfig.resource=app-in-mem.conf
+ *
  */
 fun main(args: Array<String>) {
 

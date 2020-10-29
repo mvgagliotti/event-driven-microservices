@@ -72,6 +72,8 @@ class CustomerApp : KoinComponent {
 
 /**
  * App entry point
+ * Running inside Intellij with postgres; set environment variables:
+ *  DATABASE_USERNAME=root;DATABASE_PASSWORD=test123;DATABASE_PORT=5432;PERSISTENCE_MODE=postgres
  *
  * Running with docker:
  *

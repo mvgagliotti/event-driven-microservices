@@ -28,6 +28,8 @@ dependencies {
     val cassandraPluginVersion = "0.103"
     val jwtVersion = "3.10.2"
     val konfigVersion = "1.6.10.0"
+    val h2Version = "1.4.200"
+    val awssdkVersion = "2.13.56"
 
     /////////////////////
     /// Main dependencies
@@ -49,6 +51,11 @@ dependencies {
 
     //Akka projections
     implementation("com.lightbend.akka:akka-projection-core_$scalaVersion:1.0.0")
+    implementation("com.lightbend.akka:akka-projection-jdbc_$scalaVersion:1.0.0")
+    implementation("com.lightbend.akka:akka-projection-eventsourced_$scalaVersion:1.0.0")
+
+    //h2
+    implementation("com.h2database:h2:$h2Version")
 
     //LevelDB
     implementation("org.fusesource.leveldbjni:leveldbjni-all:1.8")
@@ -82,8 +89,12 @@ dependencies {
     
     //konfig
     implementation("com.natpryce:konfig:$konfigVersion")
-    
-    
+
+    //aws sdk
+    implementation(platform("software.amazon.awssdk:bom:$awssdkVersion"))
+    implementation("software.amazon.awssdk:sqs")
+    implementation( "software.amazon.awssdk:sns")
+
     testCompile("com.typesafe.akka:akka-actor-testkit-typed_$scalaVersion:$akkaVersion")
     testCompile("junit:junit:4.12")
 }

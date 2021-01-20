@@ -22,6 +22,17 @@ import org.koin.core.context.startKoin
 import org.koin.core.inject
 import javax.sql.DataSource
 
+/**
+ * App entry point
+ * Running inside Intellij with postgres; set environment variables:
+ *  DATABASE_USERNAME=root;DATABASE_PASSWORD=test123;DATABASE_PORT=5432;PERSISTENCE_MODE=postgres
+ *
+ * Running with docker:
+ *
+ * docker run --name postgres -e POSTGRES_DB=customer_service -e POSTGRES_USER=root -e POSTGRES_PASSWORD=test123 -d -p 5432:5432 postgres
+ * docker run mvgagliotti/customer-service:1.2 -e DATABASE_USERNAME=root -e DATABASE_PASSWORD=test123 -e DATABASE_PORT=5432 -e PERSISTENCE_MODE=postgres -d -p 5432:5432 customer-service
+ *
+ */
 class CustomerApp : KoinComponent {
 
     private val router: Router by inject()
@@ -45,8 +56,7 @@ class CustomerApp : KoinComponent {
             SchemaUtils.create(UserTable)
         }
 
-        Javalin
-            .create { config ->
+        Javalin.create { config ->
                 config.accessManager { handler, ctx, permittedRoles ->
                     handler.handle(ctx)
                 }
@@ -69,18 +79,6 @@ class CustomerApp : KoinComponent {
     }
 }
 
-
-/**
- * App entry point
- * Running inside Intellij with postgres; set environment variables:
- *  DATABASE_USERNAME=root;DATABASE_PASSWORD=test123;DATABASE_PORT=5432;PERSISTENCE_MODE=postgres
- *
- * Running with docker:
- *
- * docker run --name postgres -e POSTGRES_DB=customer_service -e POSTGRES_USER=root -e POSTGRES_PASSWORD=test123 -d -p 5432:5432 postgres
- * docker run mvgagliotti/customer-service:1.2 -e DATABASE_USERNAME=root -e DATABASE_PASSWORD=test123 -e DATABASE_PORT=5432 -e PERSISTENCE_MODE=postgres -d -p 5432:5432 customer-service
- *
- */
 fun main() {
 
     CustomerApp().setup()

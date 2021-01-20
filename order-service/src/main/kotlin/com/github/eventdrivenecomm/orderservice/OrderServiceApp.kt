@@ -11,6 +11,13 @@ import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.inject
 
+/**
+ * TODO: review the way ports are obtained: it's better to put them on env variables rather than command line params
+ *
+ * To run in memory:
+ * -Dconfig.resource=app-in-mem.conf
+ *
+ */
 class OrderServiceApp : KoinComponent {
 
     private val orderRouter: OrderRouter by inject()
@@ -53,13 +60,6 @@ class OrderServiceApp : KoinComponent {
     }
 }
 
-/**
- * TODO: review the way ports are obtained: it's better to put them on env variables rather than command line params
- *
- * To run in memory:
- * -Dconfig.resource=app-in-mem.conf
- *
- */
 fun main(args: Array<String>) {
 
     //Disabling Jetty logs

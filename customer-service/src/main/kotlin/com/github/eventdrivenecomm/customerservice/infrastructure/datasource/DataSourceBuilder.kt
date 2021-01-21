@@ -1,7 +1,7 @@
 package com.github.eventdrivenecomm.customerservice.infrastructure.datasource
 
 import com.codahale.metrics.health.HealthCheckRegistry
-import com.github.eventdrivenecomm.customerservice.config.EnvironmentConfig
+import com.github.eventdrivenecomm.customerservice.application.config.EnvironmentConfig
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import javax.sql.DataSource

@@ -1,4 +1,4 @@
-package com.github.eventdrivenecomm.customerservice.web.controllers
+package com.github.eventdrivenecomm.customerservice.application.web.controllers
 
 import com.github.eventdrivenecomm.customerservice.domain.model.User
 import com.github.eventdrivenecomm.customerservice.domain.service.RegisterService

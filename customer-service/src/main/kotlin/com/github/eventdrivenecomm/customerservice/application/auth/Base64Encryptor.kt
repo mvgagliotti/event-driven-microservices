@@ -1,4 +1,4 @@
-package com.github.eventdrivenecomm.customerservice.auth
+package com.github.eventdrivenecomm.customerservice.application.auth
 
 import com.auth0.jwt.algorithms.Algorithm
 

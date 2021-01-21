@@ -1,4 +1,4 @@
-package com.github.eventdrivenecomm.customerservice.web.controllers
+package com.github.eventdrivenecomm.customerservice.application.web.controllers
 
 import com.codahale.metrics.health.HealthCheckRegistry
 import io.javalin.http.Context

@@ -1,4 +1,4 @@
-package com.github.eventdrivenecomm.customerservice.config
+package com.github.eventdrivenecomm.customerservice.application.config
 
 import com.natpryce.konfig.*
 import com.natpryce.konfig.ConfigurationProperties.Companion.systemProperties

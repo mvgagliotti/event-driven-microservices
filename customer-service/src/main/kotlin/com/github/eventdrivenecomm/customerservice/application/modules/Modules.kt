@@ -1,20 +1,20 @@
-package com.github.eventdrivenecomm.customerservice.modules
+package com.github.eventdrivenecomm.customerservice.application.modules
 
 import com.auth0.jwt.algorithms.Algorithm
 import com.codahale.metrics.health.HealthCheckRegistry
-import com.github.eventdrivenecomm.customerservice.auth.Base64Encryptor
-import com.github.eventdrivenecomm.customerservice.auth.TokenCreator
-import com.github.eventdrivenecomm.customerservice.auth.TokenVerifier
-import com.github.eventdrivenecomm.customerservice.config.EnvironmentConfig
+import com.github.eventdrivenecomm.customerservice.application.auth.Base64Encryptor
+import com.github.eventdrivenecomm.customerservice.application.auth.TokenCreator
+import com.github.eventdrivenecomm.customerservice.application.auth.TokenVerifier
+import com.github.eventdrivenecomm.customerservice.application.config.EnvironmentConfig
 import com.github.eventdrivenecomm.customerservice.domain.repository.UserRepository
 import com.github.eventdrivenecomm.customerservice.domain.service.LoginService
 import com.github.eventdrivenecomm.customerservice.domain.service.RegisterService
 import com.github.eventdrivenecomm.customerservice.infrastructure.datasource.DataSourceBuilder
 import com.github.eventdrivenecomm.customerservice.infrastructure.persistence.UserRepositoryImpl
-import com.github.eventdrivenecomm.customerservice.web.Router
-import com.github.eventdrivenecomm.customerservice.web.controllers.HealthCheckController
-import com.github.eventdrivenecomm.customerservice.web.controllers.LoginController
-import com.github.eventdrivenecomm.customerservice.web.controllers.RegisterController
+import com.github.eventdrivenecomm.customerservice.application.web.Router
+import com.github.eventdrivenecomm.customerservice.application.web.controllers.HealthCheckController
+import com.github.eventdrivenecomm.customerservice.application.web.controllers.LoginController
+import com.github.eventdrivenecomm.customerservice.application.web.controllers.RegisterController
 import org.koin.dsl.module
 
 val configModule = module {

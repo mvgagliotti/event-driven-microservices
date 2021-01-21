@@ -1,8 +1,8 @@
-package com.github.eventdrivenecomm.customerservice.web
+package com.github.eventdrivenecomm.customerservice.application.web
 
-import com.github.eventdrivenecomm.customerservice.web.controllers.HealthCheckController
-import com.github.eventdrivenecomm.customerservice.web.controllers.LoginController
-import com.github.eventdrivenecomm.customerservice.web.controllers.RegisterController
+import com.github.eventdrivenecomm.customerservice.application.web.controllers.HealthCheckController
+import com.github.eventdrivenecomm.customerservice.application.web.controllers.LoginController
+import com.github.eventdrivenecomm.customerservice.application.web.controllers.RegisterController
 import io.javalin.Javalin
 import io.javalin.core.security.Role
 

@@ -1,6 +1,6 @@
-package com.github.eventdrivenecomm.customerservice.web.controllers
+package com.github.eventdrivenecomm.customerservice.application.web.controllers
 
-import com.github.eventdrivenecomm.customerservice.auth.TokenCreator
+import com.github.eventdrivenecomm.customerservice.application.auth.TokenCreator
 import com.github.eventdrivenecomm.customerservice.domain.dto.LoginDTO
 import com.github.eventdrivenecomm.customerservice.domain.model.User
 import com.github.eventdrivenecomm.customerservice.domain.service.LoginService

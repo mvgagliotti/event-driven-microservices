@@ -1,13 +1,13 @@
 package com.github.eventdrivenecomm.customerservice
 
 import com.github.eventdrivenecomm.customerservice.infrastructure.persistence.UserTable
-import com.github.eventdrivenecomm.customerservice.modules.authModule
-import com.github.eventdrivenecomm.customerservice.modules.configModule
-import com.github.eventdrivenecomm.customerservice.modules.datasourceModule
-import com.github.eventdrivenecomm.customerservice.modules.domainModule
-import com.github.eventdrivenecomm.customerservice.modules.healthCheckModule
-import com.github.eventdrivenecomm.customerservice.modules.webModule
-import com.github.eventdrivenecomm.customerservice.web.Router
+import com.github.eventdrivenecomm.customerservice.application.modules.authModule
+import com.github.eventdrivenecomm.customerservice.application.modules.configModule
+import com.github.eventdrivenecomm.customerservice.application.modules.datasourceModule
+import com.github.eventdrivenecomm.customerservice.application.modules.domainModule
+import com.github.eventdrivenecomm.customerservice.application.modules.healthCheckModule
+import com.github.eventdrivenecomm.customerservice.application.modules.webModule
+import com.github.eventdrivenecomm.customerservice.application.web.Router
 import io.javalin.Javalin
 import io.javalin.plugin.metrics.MicrometerPlugin
 import io.micrometer.core.instrument.Metrics

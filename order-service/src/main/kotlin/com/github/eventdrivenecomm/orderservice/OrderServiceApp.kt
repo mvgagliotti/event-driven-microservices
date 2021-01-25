@@ -1,9 +1,9 @@
 package com.github.eventdrivenecomm.orderservice
 
-import com.github.eventdrivenecomm.orderservice.auth.TokenHandler
-import com.github.eventdrivenecomm.orderservice.dimodules.authModule
-import com.github.eventdrivenecomm.orderservice.dimodules.startMainModule
-import com.github.eventdrivenecomm.orderservice.restapi.routes.OrderRouter
+import com.github.eventdrivenecomm.orderservice.application.auth.TokenHandler
+import com.github.eventdrivenecomm.orderservice.application.dimodules.authModule
+import com.github.eventdrivenecomm.orderservice.application.dimodules.startMainModule
+import com.github.eventdrivenecomm.orderservice.application.restapi.routes.OrderRouter
 import io.javalin.Javalin
 import io.javalin.core.security.Role
 import io.javalin.http.ForbiddenResponse

@@ -1,8 +1,8 @@
 package com.github.eventdrivenecomm.orderservice.domain
 
-import com.github.eventdrivenecomm.orderservice.eventsourcing.DoNotPersistEvent
-import com.github.eventdrivenecomm.orderservice.eventsourcing.ESAggregate
-import com.github.eventdrivenecomm.orderservice.akka.serializable.CborSerializable
+import com.github.eventdrivenecomm.orderservice.infrastructure.eventsourcing.DoNotPersistEvent
+import com.github.eventdrivenecomm.orderservice.infrastructure.eventsourcing.ESAggregate
+import com.github.eventdrivenecomm.orderservice.infrastructure.akka.serializable.CborSerializable
 
 /////////////////
 ///Aggregate protocol

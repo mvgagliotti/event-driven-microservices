@@ -1,9 +1,9 @@
 package com.github.playwithnewapi
 
 import akka.actor.typed.ActorSystem
-import com.github.eventdrivenecomm.orderservice.actor.OrderActor
-import com.github.eventdrivenecomm.orderservice.actor.guardianActor
-import com.github.eventdrivenecomm.orderservice.akka.factory.CommandFirerFactory
+import com.github.eventdrivenecomm.orderservice.infrastructure.actor.OrderActor
+import com.github.eventdrivenecomm.orderservice.infrastructure.actor.guardianActor
+import com.github.eventdrivenecomm.orderservice.infrastructure.akka.factory.CommandFirerFactory
 import com.github.eventdrivenecomm.orderservice.domain.Get
 import com.typesafe.config.ConfigFactory
 

@@ -1,6 +1,6 @@
 package com.github.eventdrivenecomm.orderservice.domain
 
-import com.github.eventdrivenecomm.orderservice.akka.serializable.CborSerializable
+import com.github.eventdrivenecomm.orderservice.infrastructure.akka.serializable.CborSerializable
 import java.math.BigDecimal
 
 val EMPTY_ORDER: Order = Order("", "", listOf())
